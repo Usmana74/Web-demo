@@ -1,0 +1,30 @@
+<!-- about.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section style="padding: 50px 0; background-color: #fff;">
+    <div class="container" style="display: flex; gap: 50px; align-items: center;">
+        <div class="about-image" style="flex: 1;">
+            <img src="{% static 'images\EGGM3820.JPG' %}" alt="About Us" style="width: 100%; height: auto; border-radius: 8px;">
+        </div>
+        <div class="about-content" style="flex: 2;">
+            <h2 style="font-size: 32px; font-weight: 600; margin-bottom: 20px;">Our Story – Ralph Lauren</h2>
+            <p style="color: #555; font-size: 16px; line-height: 1.7;">
+                At Ralph Lauren, we believe that style is a reflection of identity — timeless, bold, and uniquely personal. Since our inception, our mission has been to redefine fashion by combining heritage craftsmanship with contemporary elegance.
+                <br><br>
+                Driven by passion and precision, every collection we design carries a sense of purpose and pride. From classic apparel to modern essentials, each piece is meticulously crafted to inspire confidence and elevate everyday living.
+            </p>
+            <blockquote style="margin-top: 30px; border-left: 4px solid #ccc; padding-left: 20px; font-style: italic; color: #777;">
+                Ralph Lauren is more than a brand — it is a lifestyle rooted in authenticity, sophistication, and innovation. Our journey is built upon a commitment to quality, a respect for tradition, and an unwavering dedication to those who wear our name.
+                <br>
+                Join us in celebrating a world where fashion is eternal, and style never fades.
+                <br><br>
+                <strong>“Style is a way to say who you are without having to speak.”</strong>
+                <br><br>
+                <span style="display: block; text-align: right; font-weight: bold; margin-top: 10px;">- Usman</span>
+            </blockquote>
+        </div>
+    </div>
+</section>
+{% endblock %}

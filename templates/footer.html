@@ -1,0 +1,88 @@
+{% load static %}
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Abel|Lato|Open+Sans&display=swap" rel="stylesheet">
+
+<style>
+  #footer-main {
+    background: #000;
+    color: white;
+    font-size: 0.8rem;
+    padding: 2.5rem 0;
+    font-family: 'Lato', sans-serif;
+  }
+
+  #footer-main a {
+    font-size: 14px;
+    display: block;
+    margin: 0.3rem;
+    color: grey;
+    text-decoration: none;
+  }
+
+  #footer-main a:hover {
+    font-weight: bold;
+    color: white;
+  }
+
+  #footer-main h6 a {
+    color: white;
+  }
+
+  #footer-main hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid white;
+  }
+
+  #footer-main .footer-section {
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    #footer-main .container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    #footer-main .footer-section {
+      text-align: center !important;
+    }
+
+    #footer-main h2 {
+      font-size: 2.5rem;
+    }
+  }
+</style>
+
+<footer id="footer-main">
+  <div class="container d-flex justify-content-between flex-wrap text-left">
+    
+    <!-- Left Section -->
+    <div class="footer-section" style="flex: 1; min-width: 200px;">
+      <h6 class="mt-3"><a href="">SHIPPING & DELIVERIES</a></h6>
+      <h6 class="mt-3"><a href="">EXCHANGE & RETURN</a></h6>
+      <h6 class="mt-3"><a href="">FAQS</a></h6>
+      <h6 class="mt-3"><a href="/admin/">ADMIN LOGIN</a></h6>
+    </div>
+
+    <!-- Center Logo Section -->
+    <div class="footer-section" style="flex: 1; min-width: 200px; text-align: center;">
+      <h2 style="font-family: 'Abel', sans-serif; font-size: 4rem; margin: 0;">Ralph Lauren</h2>
+    </div>
+
+    <!-- Right Section -->
+    <div class="footer-section" style="flex: 1; min-width: 200px; text-align: right;">
+      <a href="">ABOUT US</a>
+      <a href="">CONTACT US</a>
+      <a href="">RETAIL STORES</a>
+      <a href="">SUSTAINABILITY</a>
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div style="text-align: center; color: grey; margin-top: 2rem;">
+    @ Copyrights Reserved by Ralph Lauren 2025
+  </div>
+</footer>
