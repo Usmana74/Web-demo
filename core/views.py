@@ -10,6 +10,8 @@ from django.utils import timezone
 from .forms import CheckoutForm, CouponForm, RefundForm
 from .models import Item, OrderItem, Order, BillingAddress, Payment, Coupon, Refund, Category
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
 from django.urls import reverse
 # Create your views here.
@@ -20,13 +22,58 @@ import os
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 
 
+
+def landing_view(request):
+    if request.user.is_authenticated:
+        return redirect('core:home')  # Namespaced redirect
+    return render(request, 'landing.html')
+
+
+def signup_view(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('index')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
+
+@login_required
+def index_view(request):
+    return render(request, 'index.html')  # Or your actual homepage
+
+
 def about_view(request):
     return render(request, 'about.html')
 
 from django.shortcuts import render
 
-from .models import ContactMessage
 from django.contrib import messages
+from .forms import UserUpdateForm
+
+@login_required
+def dashboard_view(request):
+    user = request.user
+    orders = Order.objects.filter(user=user)
+
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully.')
+            return redirect('core:dashboard')
+    else:
+        form = UserUpdateForm(instance=user)
+
+    return render(request, 'dashboard.html', {
+        'user': user,
+        'orders': orders,
+        'form': form
+    })
 
 def contact_view(request):
     if request.method == 'POST':

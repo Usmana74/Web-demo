@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome | Ralph Lauren Experience</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up {
+      animation: fadeInUp 1.2s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-[#1a1a1a] to-[#3a3a3a] text-white min-h-screen flex flex-col justify-center items-center font-sans">
+
+  <div class="text-center px-6 fade-in-up">
+    <h1 class="text-5xl md:text-6xl font-bold tracking-wide mb-6 text-yellow-100 animate-pulse drop-shadow-lg">
+      Discover the World of Ralph Lauren
+    </h1>
+    <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+      “Elegance is not standing out, but being remembered.” — Elevate your wardrobe and digital experience with timeless fashion and modern tech synergy.
+    </p>
+
+    <div class="flex justify-center space-x-4">
+      <a href="{% url 'account_login' %}" class="bg-white text-gray-900 hover:bg-yellow-100 hover:text-black font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">
+        Login
+      </a>
+      <a href="{% url 'account_signup' %}" class="bg-yellow-500 text-white hover:bg-yellow-400 font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">
+        Sign Up
+      </a>
+    </div>
+  </div>
+
+  <footer class="absolute bottom-5 text-sm text-gray-400">© 2025 Ralph Lauren Digital | Built on Web-Demo</footer>
+
+</body>
+</html>

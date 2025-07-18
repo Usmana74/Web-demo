@@ -33,7 +33,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 
-    'allauth.account.middleware.AccountMiddleware',  # ✅ MUST be here
+    'allauth.account.middleware.AccountMiddleware',  
 
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -64,6 +64,9 @@ USE_L10N = True
 USE_TZ = True
 
 # static files (CSS, JS, Image)
+
+LOGIN_REDIRECT_URL = 'core:index'
+LOGOUT_REDIRECT_URL = 'core:landing'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_in_env')]
