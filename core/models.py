@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models import Sum
 from django.shortcuts import reverse
 from django_countries.fields import CountryField
+from django.contrib.auth.models import User
 
 # Create your models here.
 CATEGORY_CHOICES = (
@@ -215,5 +216,16 @@ class ContactMessage(models.Model):
         return f"Message from {self.full_name} ({self.email})"
 
 
+class Profile(models.Model):
+    ROLE_CHOICES = (
+        ('admin', 'Admin'),
+        ('customer', 'Customer'),
+        ('guest', 'Guest'),
+    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='customer')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.role}"
 
 

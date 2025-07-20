@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from .models import Profile
 from .models import Item, OrderItem, Order, Payment, Coupon, Refund, BillingAddress, Category, Slide
 from .models import ContactMessage
 
@@ -102,3 +102,10 @@ admin.site.register(Payment)
 admin.site.register(Coupon)
 admin.site.register(Refund)
 admin.site.register(BillingAddress, AddressAdmin)
+
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'role')
+    list_filter = ('role',)

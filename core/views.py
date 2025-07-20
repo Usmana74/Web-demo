@@ -10,6 +10,7 @@ from django.utils import timezone
 from .forms import CheckoutForm, CouponForm, RefundForm
 from .models import Item, OrderItem, Order, BillingAddress, Payment, Coupon, Refund, Category
 from django.http import HttpResponseRedirect
+from django.db.models.functions import TruncMonth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
@@ -405,3 +406,92 @@ class RequestRefundView(View):
             except ObjectDoesNotExist:
                 messages.info(self.request, "This order does not exist")
                 return redirect("core:request-refund")
+
+from django.shortcuts import redirect
+from django.contrib import messages
+
+def admin_redirect(request):
+    if request.user.is_authenticated and hasattr(request.user, 'profile'):
+        if request.user.profile.role == 'admin':
+            return redirect('/admin/')  # or use reverse()
+        else:
+            messages.error(request, "Access denied: You do not have admin privileges.")
+            return redirect('core:dashboard')
+    else:
+        messages.error(request, "Please log in with an admin account to access this area.")
+        return redirect('core:login')
+
+from django.http import JsonResponse
+from django.contrib.auth.models import User
+from core.models import Order  # Adjust if your model is named differently
+
+def chart_data(request):
+    total_users = User.objects.count()
+    total_orders = Order.objects.count()  # Adjust based on your actual model
+    data = {
+        'labels': ['Users', 'Orders'],
+        'data': [total_users, total_orders],
+    }
+    return JsonResponse(data)
+
+from django.contrib.auth.decorators import user_passes_test
+
+def is_admin(user):
+    return user.is_authenticated and user.profile.role == 'admin'
+
+
+from django.contrib.auth.models import User
+from django.db.models.functions import TruncMonth
+from django.db.models import Count
+from datetime import datetime, timedelta
+
+from django.shortcuts import render, redirect
+from .models import Order, User  # adjust models as per your project
+from django.db.models import Count
+from django.db.models.functions import TruncMonth
+
+@login_required
+def admin_dashboard_view(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    orders = Order.objects.all()
+    users = User.objects.all()
+
+    monthly_orders = (
+        orders
+        .annotate(month=TruncMonth("ordered_date"))
+        .values("month")
+        .annotate(count=Count("id"))
+        .order_by("month")
+    )
+
+    context = {
+        "orders": orders,
+        "users": users,
+        "monthly_orders": monthly_orders,
+    }
+
+    return render(request, "admin_dashboard.html", context)
+
+from django.http import JsonResponse
+
+def chart_data(request):
+    # Sample dummy data — replace with real logic if needed
+    data = {
+        "labels": ["Jan", "Feb", "Mar", "Apr", "May"],
+        "data": [120, 150, 300, 200, 180]
+    }
+    return JsonResponse(data)
+
+def admin_redirect(request):
+    return redirect('/admin/login/?next=/admin_dashboard/')
+
+
+  
+
+
+
+
+
+
