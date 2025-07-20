@@ -14,7 +14,7 @@ from .views import (
     RequestRefundView,
     CategoryView,
     about_view,
-    contact_view
+    contact_view,
 )
 
 app_name = 'core'
@@ -22,6 +22,10 @@ app_name = 'core'
 urlpatterns = [
     path('home/', HomeView.as_view(), name='home'),
     path('', views.landing_view, name='landing'),
+    path('admin-redirect/', views.admin_redirect, name='admin_redirect'),
+    path('chart-data/', views.chart_data, name='chart-data'),
+    path('admin_dashboard/', views.admin_dashboard_view, name='admin_dashboard'),
+    path('chart-data/', views.chart_data, name='chart-data'),
     path('signup/', views.signup_view, name='signup'),
     path('dashboard/', views.dashboard_view, name='dashboard'),
     path('checkout/', CheckoutView.as_view(), name='checkout'),

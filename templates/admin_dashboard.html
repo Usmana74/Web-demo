@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Admin Dashboard</h1>
+
+    <!-- Sales Chart -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title text-center">Sales Chart</h2>
+            <canvas id="salesChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Script to Fetch Chart Data -->
+<script>
+  fetch("{% url 'core:chart-data' %}")
+    .then(response => response.json())
+    .then(data => {
+      const ctx = document.getElementById('salesChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: data.labels,
+          datasets: [{
+            label: 'Sales',
+            data: data.data,
+            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                stepSize: 50
+              }
+            }
+          }
+        }
+      });
+    })
+    .catch(error => console.error("Error loading chart data:", error));
+</script>
+{% endblock %}

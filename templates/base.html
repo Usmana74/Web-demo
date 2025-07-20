@@ -51,5 +51,14 @@
     {% include "script.html" %}
 
     {% block extra_scripts %}{% endblock extra_scripts %}
+
+    {% if messages %}
+<div class="container">
+  {% for message in messages %}
+    <div class="alert alert-warning">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %}
+
   </body>
 </html>
